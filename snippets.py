@@ -49,7 +49,7 @@ def s3_get_locations():
 def s3_lista_bucket():
     """Lista i bucket"""
     client = boto3.client("s3")
-    return [b['name'] for b in client.list_buckets()["Buckets"]]
+    return [b['Name'] for b in client.list_buckets()["Buckets"]]
 
 
 def s3_read_obj(bucket: str, nomefile: str):
