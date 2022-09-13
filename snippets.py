@@ -248,6 +248,17 @@ def sqs_crea_coda(nome_coda: str, fifo: bool = True):
             ).url
     return url_coda
 
+def sqs_lista_code():
+    client=boto3.client('sqs')
+    return client.list_queues()['QueueUrls']
+
+def sqs_cancella_coda(queue_url):
+    client.delete_queue(QueueUrl=queue_url)
+    return True
+    
+def sqs_nuke_coda(queue_url):
+    client.purge_queue(QueueUrl=queue_url)
+    return True
 
 # ECS
 
