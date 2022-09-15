@@ -173,6 +173,7 @@ def sqs_lunghezza_coda(url_coda: str):
     lung = client.get_queue_attributes(
         QueueUrl=url_coda, AttributeNames=["ApproximateNumberOfMessages"]
     )["Attributes"]["ApproximateNumberOfMessages"]
+    return lung
 
 
 def sqs_get_url_coda(nome_coda: str):
@@ -180,6 +181,7 @@ def sqs_get_url_coda(nome_coda: str):
     resource = boto3.resource("sqs")
     coda = resource.get_queue_by_name(QueueName=nome_coda)
     queue_url = str(coda.url)
+    return queue_url
 
 
 def sqs_ricevi_msg(url_coda: str):
@@ -196,7 +198,7 @@ def sqs_cancella_msg(url_coda: str, receipt_handle: Any):
     """cancella un messaggio dalla coda"""
     client = boto3.client("sqs")
     client.delete_message(QueueUrl=url_coda, ReceiptHandle=receipt_handle)
-
+    return True
 
 def sqs_invio_messaggio(
     url_coda: str, messaggio: str, group_id: str, attributi_msg: str = ""
@@ -215,6 +217,7 @@ def sqs_invio_messaggio(
         },
         MessageGroupId=group_id,
     )
+    return True
 
 
 def sqs_crea_coda(nome_coda: str, fifo: bool = True):
